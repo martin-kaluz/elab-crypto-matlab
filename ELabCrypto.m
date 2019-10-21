@@ -1,8 +1,8 @@
-%  Open ELab in MANAGER mode
+%  Open ELabCrypto in MANAGER mode
 %  In this mode, you can LIST and INSTALL devices
 %
 %  Example:
-%           elab_manager = ELab();  % Creating elab instance by calling
+%           elab_manager = ELabCrypto();  % Creating elab instance by calling
 %                                   % ELab class without parameters,
 %                                   % automatically triggers the MANAGER mode.
 %           elab_manager.list();    % Displays list of devices available in
@@ -15,7 +15,7 @@
 %  In this mode, you have full control over selected device
 %
 %  Example:
-%           elab_manager = ELab(DEVICE_NAME, MODE, ADDRESS, LOGGING, LOGGING_PERIOD, INTERNAL_SAMPLING_PERIOD, POLLING_PERIOD, ENCRYPTION, ENCRYPTION_LENGTH, ENCRYPTION_DEPTH);
+%           elab_manager = ELabCrypto(DEVICE_NAME, MODE, ADDRESS, LOGGING, LOGGING_PERIOD, INTERNAL_SAMPLING_PERIOD, POLLING_PERIOD, ENCRYPTION, ENCRYPTION_LENGTH, ENCRYPTION_DEPTH);
 %
 %           where DEVICE_NAME (String) is a designated name of the device (e.g. 'pct23'),
 %                 MODE (String) is mode switch with possible values 'MANAGER', 'CONTROL', 'MONITOR',
@@ -508,21 +508,6 @@ classdef ELabCrypto < handle
             if(perm)
                 savepath;
             end
-        end
-        
-        function decrypted = paillierDecrypt(encrypted,opt)
-            lambda = java.math.BigInteger('5271370877179312436434726786523079168292412436171340441891485727607398600433297187191530371317445461215468895775122969201271916835342608720299697756570938');
-            n2 = java.math.BigInteger('111149403699096775358576071750877076666259229771631465963822285612044900536120924817850535661769553599957358930420677771207280260598156457498421605196933939752007692417816507930114141649575146431976312561017668973689469052794116570931201965191658373157502909542936366115224864238148775712820545103687523007329');
-            mu = java.math.BigInteger('404794552128586344809376814198662651345739429521494381605898334680609991327387841445866210940514824941823254200004320685915516856258276693342791703318390');
-            n = java.math.BigInteger('10542741754358624872869453573046158336584824872342680883782971455214797200866800166234555628279040235295926113244895967928199936410372333707714642584144177'); % n
-            encrypted_BInt = java.math.BigInteger(encrypted);
-            d = encrypted_BInt.modPow(lambda,n2).subtract(java.math.BigInteger(1)).divide(n).multiply(mu).mod(n);
-            if(opt)
-                
-            else
-                decrypted = char(d.toByteArray');
-            end
-            
         end
         
     end
